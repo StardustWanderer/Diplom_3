@@ -1,5 +1,6 @@
 package praktikum.tests;
 
+import io.qameta.allure.Allure;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,9 @@ public abstract class BaseTest {
     @Before
     public void setUp(){
         this.driver = BrowserFactory.createDriver();
+
+        String browser = System.getProperty("browser", "chrome");
+        Allure.label("browser", browser);
     }
 
     @After

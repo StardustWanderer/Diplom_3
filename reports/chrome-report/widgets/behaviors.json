@@ -1,1 +1,0 @@
-{"total":4,"items":[{"uid":"8df4997790a62e1a54eed8c5a08d04dc","name":"Авторизация пользователя","statistic":{"failed":0,"broken":0,"skipped":0,"passed":4,"unknown":0,"total":4}},{"uid":"6610e4f961f7eeda53c6572a855677d3","name":"Конструктор бургеров","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}

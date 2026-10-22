@@ -27,5 +27,4 @@ public class UserData {
     public String generateInvalidPassword() {
         return faker.internet().password(2, 5);
     }
-
 }
