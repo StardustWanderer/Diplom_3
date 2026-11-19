@@ -16,9 +16,11 @@
 
         <junit.version>4.13.2</junit.version>
         <rest-assured.version>5.4.0</rest-assured.version>
-        <selenium.version>4.48.0</selenium.version>
+        <selenium.version>4.52.0</selenium.version>
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.22.1</aspectj.version>
+
+        <browser>chrome</browser>
     </properties>
 
     <!-- БЛОК ЗАВИСИМОСТЕЙ: Сторонние библиотеки, которые скачивает Maven для написания кода тестов. -->
@@ -37,6 +39,7 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -118,7 +121,8 @@
 
                     <!-- Каталог результатов Allure -->
                     <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <browser>${browser}</browser>
+                        <allure.results.directory>${project.build.directory}/allure-results/${browser}</allure.results.directory>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
