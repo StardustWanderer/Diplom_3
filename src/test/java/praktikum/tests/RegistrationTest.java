@@ -7,7 +7,6 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import praktikum.data.UserData;
 import praktikum.pages.LoginPage;
 import praktikum.pages.MainPage;
 import praktikum.pages.RegisterPage;
@@ -15,23 +14,32 @@ import praktikum.utils.ApiMethods;
 
 import static org.apache.http.HttpStatus.SC_OK;
 import static praktikum.config.Urls.LOGIN_PAGE_URL;
+import static praktikum.data.UserData.*;
 
 @Feature("Регистрация пользователя")
 public class RegistrationTest extends BaseTest {
 
-    private final UserData userData = new UserData();
     private final ApiMethods apiMethods = new ApiMethods();
 
     private String email;
     private String password;
 
+    private RegisterPage goToRegisterPage() {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.openMainPage();
+
+        LoginPage loginPage = mainPage.clickAccountButton();
+
+        return loginPage.clickOnRegisterLink();
+    }
+
     @Test
     @DisplayName("Успешная регистрация пользователя")
     @Description("Проверяем регистрацию нового пользователя и переход на страницу авторизации")
     public void shouldRegisterUserSuccessfully() {
-        String name = userData.generateName();
-        email = userData.generateEmail();
-        password = userData.generateValidPassword();
+        String name = getGeneratedName();
+        email = getGeneratedEmail();
+        password = getGeneratedValidPassword();
 
         RegisterPage registerPage = goToRegisterPage();
         registerPage.sendUserDataAndRegister(name, email, password);
@@ -54,14 +62,12 @@ public class RegistrationTest extends BaseTest {
     @DisplayName("Регистрация с коротким паролем")
     @Description("Проверяем отображение ошибки при попытке регистрации с паролем недопустимой длины")
     public void registrationWithShortPasswordReturnsError() {
-        String name = userData.generateName();
-        email = userData.generateEmail();
-        password = userData.generateInvalidPassword();
+        String name = getGeneratedName();
+        email = getGeneratedEmail();
+        password = getGeneratedShortPassword();
 
         RegisterPage registerPage = goToRegisterPage();
-
         String registrationPageUrl = driver.getCurrentUrl();
-
         registerPage.sendUserDataAndRegister(name, email, password);
 
         Assert.assertTrue(
@@ -74,15 +80,6 @@ public class RegistrationTest extends BaseTest {
                 registrationPageUrl,
                 driver.getCurrentUrl()
         );
-    }
-
-    private RegisterPage goToRegisterPage() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.openMainPage();
-
-        LoginPage loginPage = mainPage.clickAccountButton();
-
-        return loginPage.clickOnRegisterLink();
     }
 
     @After

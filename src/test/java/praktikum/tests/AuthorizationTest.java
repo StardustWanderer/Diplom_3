@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import praktikum.data.UserData;
 import praktikum.pages.ForgotPasswordPage;
 import praktikum.pages.LoginPage;
 import praktikum.pages.MainPage;
@@ -21,11 +20,11 @@ import java.time.Duration;
 
 import static org.apache.http.HttpStatus.SC_OK;
 import static praktikum.config.Urls.MAIN_PAGE_URL;
+import static praktikum.data.UserData.*;
 
 @Feature("Авторизация пользователя")
 public class AuthorizationTest extends BaseTest {
 
-    private final UserData userData = new UserData();
     private final ApiMethods apiMethods = new ApiMethods();
 
     private String email;
@@ -34,9 +33,9 @@ public class AuthorizationTest extends BaseTest {
 
     @Before
     public void createUserViaApi() {
-        String name = userData.generateName();
-        email = userData.generateEmail();
-        password = userData.generateValidPassword();
+        String name = getGeneratedName();
+        email = getGeneratedEmail();
+        password = getGeneratedValidPassword();
 
         Response registerResponse =
                 apiMethods.registerUser(name, email, password);
